@@ -32,7 +32,7 @@ public class Fibo implements Command {
                 n1 = resultat;
             }
         }
-        System.out.println("resultat : " + resultat);
+        System.out.println(resultat);
         return false;
     }
 }
