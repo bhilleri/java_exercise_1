@@ -40,7 +40,7 @@ public class Freq implements  Command{
         // Séléction des 3 mots les plus réccurrent
         WordList = WordList.stream().limit(3).collect(Collectors.toList());
         WordList.forEach((Map.Entry<String, Integer> element)-> {
-            System.out.println(element.getKey() + " : " + element.getValue());
+            System.out.print(element.getKey() + " ");
         });
         return false;
     }

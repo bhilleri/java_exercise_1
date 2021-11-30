@@ -32,8 +32,10 @@ public class Predict implements Command{
         String [] stringTab= text.split(" ");
         Predicate<String> predicate = s -> !(s.isEmpty());
 
-        // Regroupement des mots pour les compter
+        // Retrait des mots vides
         List<String> stringList = Arrays.stream(stringTab).filter(predicate).collect(Collectors.toList());
+
+        // Création d'une map rassemblant pour chaque mot la liste des mots qui le suive
         Map<String, List<String>> NextWord = new HashMap<>();
         for(int i = 0; i < stringList.size() -1; i++)
         {
