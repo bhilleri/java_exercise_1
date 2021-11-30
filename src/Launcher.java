@@ -1,11 +1,14 @@
+import javax.swing.*;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.stream.Stream;
 
 import static java.lang.System.exit;
 
@@ -64,20 +67,31 @@ public class Launcher {
         String path = scanner.nextLine();
         String text;
         try {
-            text = java.nio.file.Files.readString(Paths.get(path));
+            text = Files.readString(Paths.get(path));
         } catch (IOException e) {
             System.out.print("Unreadable file : IOException ");
             e.printStackTrace();
             return -1;
         }
-        text = text.replaceAll("[,!.?:;(){}]", " ");
+
+        // Récupération des mots
+        text = text.replaceAll("[,!.?:;(){}\n\r]", " ");
         text = text.toLowerCase(Locale.ROOT);
         String [] stringTab= text.split(" ");
-        for(int i = 0; i < stringTab.length; i++)
-        {
-            System.out.println(stringTab[i]);
-        }
-        Map<String, Long> ListeDeMot = Arrays.stream(stringTab).collect(Collectors.groupingBy(p -> p, Collectors.counting()));
+        Predicate<String> predicate = s -> !(s.isEmpty());
+
+        // Regroupement des mots pour les compter
+        Map<String, Long> WordMap = Arrays.stream(stringTab).filter(predicate).collect(Collectors.groupingBy(p -> p, Collectors.counting()));
+
+        // Trie des mots
+        List<Map.Entry<String, Integer>> WordList = new ArrayList(WordMap.entrySet());
+        WordList.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        // Séléction des 3 mots les plus réccurrent
+        WordList = WordList.stream().limit(3).collect(Collectors.toList());
+        WordList.forEach((Map.Entry<String, Integer> element)-> {
+            System.out.println(element.getKey() + " : " + element.getValue());
+        });
         return 0;
     }
 }
