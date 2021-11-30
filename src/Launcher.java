@@ -21,6 +21,7 @@ public class Launcher {
         CommandList.add(new Fibo());
         CommandList.add(new Freq());
         CommandList.add(new Quit());
+        CommandList.add(new Predict());
 
         boolean end = false;
         do {
