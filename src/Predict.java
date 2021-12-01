@@ -54,7 +54,8 @@ public class Predict implements Command{
         if(ListMostProbableWord.containsKey(word))
         {
             String currentWord = word;
-            for(int i=0; i < 20; i++)
+            System.out.print(currentWord + " ");
+            for(int i=0; i < 19; i++)
             {
                 if(ListMostProbableWord.containsKey(currentWord)){
                     currentWord = ListMostProbableWord.get(currentWord);
