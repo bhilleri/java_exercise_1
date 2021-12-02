@@ -50,7 +50,7 @@ public class Predict implements Command{
             ListMostProbableWord.put(key, max.get().getKey());
         });
         System.out.print("Entrer le mot : ");
-        String word = scanner.nextLine();
+        String word = scanner.nextLine().toLowerCase(Locale.ROOT);
         if(ListMostProbableWord.containsKey(word))
         {
             String currentWord = word;
